@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 class ProductManager(models.Manager):
     def active(self):
-        return self.filter(is_active=True,status='p')
+        return self.filter(is_active=True,status='p',storage__gt=0)
 
 
 
@@ -49,5 +49,7 @@ class Product(models.Model):
             return False
         else:
             return True
-    
+        
+
+   
     objects = ProductManager()

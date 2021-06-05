@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading"> انتخاب هوشمند محصولات ارگانیک</span>
+                <h2 class="mb-4">سرزمین میوه</h2>
+                <p>پیشنهاد ما به شما</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for product in products %} 
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="product">
+                    <a href="#" class="img-prod"><img class="img-fluid" src="{{product.photo.url}}" alt="Colorlib Template">
+                    </a>
+                    <div class="text py-3 pb-4 px-3 text-center">
+                        <h3><a href="#">  {{product.name}} </a></h3>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price">
+                                    <span class="price-sale"> {{product.price}}</span>
+                                    <span class="price-sale"> تومان</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bottom-area d-flex px-3">
+                            <div class="m-auto d-flex">
+                                <a href="#"
+                                   class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <span><i class="ion-ios-menu"></i></span>
+                                </a>
+                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                    <span><i class="ion-ios-heart"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-----------------------Pagination--------------------------->
+{% if products.has_other_pages %}
+<div class="row">
+  <div class="col-sm-12 col-md-5">
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+      <ul class="pagination">
+        {% if products.has_previous %}
+        <li class="paginate_button page-item previous " id="dataTable_previous">
+          <a href="{% url 'shop:home' products.previous_page_number %}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        </li>
+        {% else %}
+        <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+          <a  aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+        </li>
+        {% endif %}
+       {% for i in products.paginator.page_range %}
+        {% if products.number == i %}
+        <li class="paginate_button page-item active">
+          <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a>
+        </li>
+        {% else %}
+        <li class="paginate_button page-item ">
+          <a href="{% url 'shop:home' i %}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a>
+        </li>
+        {% endif %}
+       {% endfor %}
+        {% if products.has_next %}
+        <li class="paginate_button page-item next" id="dataTable_next">
+          <a href="{% url 'shop:home' products.next_page_number %}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+        </li>
+        {% else %}
+        <li class="paginate_button page-item next disabled" id="dataTable_next">
+          <a aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-----------------------End Pagination--------------------------->
+{% endif %}
+    </div>
+</section>
+
+{% endblock %}
