@@ -1,0 +1,10 @@
+<div class="dropdown-menu" id="top-dropdown-menu" aria-labelledby="dropdown04">
+    {% for cat in cat.scat.all %}
+        <a class="dropdown-item" href="{% url 'shop:category_detail' cat.slug %}">{{cat.name}}</a>
+        {% if cat.scat.all %}
+            {% include 'partials/category/category_navbarloop.html' %}
+        {% endif %} 
+    {% endfor %}
+</div>
+
+      

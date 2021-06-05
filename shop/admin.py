@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Product 
+from .models import Product , Category
 
 
 # Register your models here.
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name','image_tag','storage','is_active')
+    list_display = ('name','image_tag','storage','category_to_str','is_active')
     list_filter = ('price','created')
     prepopulated_fields = {'slug':('name',)}
     search_fields = ('name','description')
@@ -17,13 +17,12 @@ class ProductAdmin(admin.ModelAdmin):
     make_published.short_description = "تغییر وضییت انتشار به منشر شده"
 
 
-
-# @admin.register(Category)
-# class CategoryAdmin(admin.ModelAdmin):
-#     list_display = ('name','slug','subcat','is_subcat')
-#     list_filter = ('name','is_subcat')
-#     prepopulated_fields = {'slug':('name',)}
-#     search_fields = ('name',)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name','slug','subcat','is_subcat')
+    list_filter = ('name','is_subcat')
+    prepopulated_fields = {'slug':('name',)}
+    search_fields = ('name',)
 
 
 

@@ -1,14 +1,32 @@
 from django.db import models
 from django.utils.html import format_html
 
+
 # Create your models here.
+
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, verbose_name='نام دسته بندی')
+    slug = models.SlugField(max_length=100,unique=True, verbose_name='ادرس دسته بندی')
+    subcat = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='scat',verbose_name='سردسته')
+    is_subcat = models.BooleanField(default=False,verbose_name=' ایا سر دسته است ')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']  
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+
+
+
 
 
 class ProductManager(models.Manager):
     def active(self):
         return self.filter(is_active=True,status='p',storage__gt=0)
-
-
 
 
 class Product(models.Model):
@@ -18,6 +36,7 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=100 , verbose_name='نام محصول')
     slug = models.SlugField(max_length=100,unique=True, verbose_name='ادرس محصول')
+    category = models.ManyToManyField(Category, verbose_name='دسته بندی', related_name='pcat')
     photo = models.ImageField(upload_to = 'product/%Y/%M/%d', verbose_name='تصویر')
     description = models.TextField(verbose_name='توضیحات')
     storage = models.IntegerField(verbose_name='موجودی')
@@ -43,6 +62,11 @@ class Product(models.Model):
     image_tag.short_description = 'تصویر'    
 
 
+
+    def category_to_str(self):
+        return '-'.join([category.name for category in self.category.all()])
+
+
     @property
     def is_availble(self):
         if self.storage == 0:
@@ -50,6 +74,6 @@ class Product(models.Model):
         else:
             return True
         
-
-   
     objects = ProductManager()
+
+

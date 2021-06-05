@@ -54,48 +54,46 @@
 
         <!-----------------------Pagination--------------------------->
 {% if products.has_other_pages %}
-<div class="row">
-  <div class="col-sm-12 col-md-5">
-  </div>
-  <div class="col-sm-12 col-md-7">
-    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-      <ul class="pagination">
+
+<div class="row mt-5">
+  <div class="col text-center">
+    <div class="block-27">
+      <ul>
+
+    
         {% if products.has_previous %}
-        <li class="paginate_button page-item previous " id="dataTable_previous">
-          <a href="{% url 'shop:home' products.previous_page_number %}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-        </li>
+        <li><a href="{% url 'shop:home' products.previous_page_number %}">&lt;</a></li>
         {% else %}
-        <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-          <a  aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-        </li>
+        <li  class="disabled"><a>&lt;</a></li>
         {% endif %}
-       {% for i in products.paginator.page_range %}
+
+        {% for i in products.paginator.page_range %}
         {% if products.number == i %}
-        <li class="paginate_button page-item active">
-          <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a>
-        </li>
+        <li class="active"><span>{{i}}</span></li>
         {% else %}
-        <li class="paginate_button page-item ">
-          <a href="{% url 'shop:home' i %}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">{{i}}</a>
-        </li>
+        <li><a href="{% url 'shop:home' i %}">{{i}}</a></li>
         {% endif %}
        {% endfor %}
+
+
         {% if products.has_next %}
-        <li class="paginate_button page-item next" id="dataTable_next">
-          <a href="{% url 'shop:home' products.next_page_number %}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-        </li>
+        <li><a href="{% url 'shop:home' products.next_page_number %}">&gt;</a></li>
+
         {% else %}
-        <li class="paginate_button page-item next disabled" id="dataTable_next">
-          <a aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-        </li>
+        <li class="disabled"><a >&gt;</a></li>
         {% endif %}
+
+
       </ul>
     </div>
   </div>
 </div>
+
+      
+ 
 <!-----------------------End Pagination--------------------------->
 {% endif %}
-    </div>
+    
 </section>
 
 {% endblock %}

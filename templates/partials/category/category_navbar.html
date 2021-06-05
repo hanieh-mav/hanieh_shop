@@ -1,0 +1,13 @@
+{% for cat in category %}
+
+    {% if cat.subcat == None %}
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="{% url 'shop:category_detail' cat.slug %}" id="dropdown04" aria-haspopup="true" aria-expanded="false">{{cat.name}}</a>
+            {% if cat.scat.all %}
+                {% include 'partials/category/category_navbarloop.html' %}
+            {% endif %}
+            
+        </li>
+    {% endif %}
+
+{% endfor %}
