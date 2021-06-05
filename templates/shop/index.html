@@ -17,7 +17,7 @@
             {% for product in products %} 
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="#" class="img-prod"><img class="img-fluid" src="{{product.photo.url}}" alt="Colorlib Template">
+                    <a href="{% url 'shop:product_detaill' product.pk %}" class="img-prod"><img class="img-fluid" src="{{product.photo.url}}" alt="Colorlib Template">
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
                         <h3><a href="#">  {{product.name}} </a></h3>
@@ -46,6 +46,11 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+			<div class="col-md-12 heading-section text-center ftco-animate">
+		
+			  <p> هیچ محصولی یافت نشد</p>
+			</div>
             {% endfor %}
 
         </div>

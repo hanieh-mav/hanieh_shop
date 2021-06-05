@@ -26,7 +26,7 @@ class Category(models.Model):
 
 class ProductManager(models.Manager):
     def active(self):
-        return self.filter(is_active=True,status='p',storage__gt=0)
+        return super(ProductManager, self).get_queryset().filter(is_active=True,status='p',storage__gt=0)
 
 
 class Product(models.Model):
@@ -74,6 +74,6 @@ class Product(models.Model):
         else:
             return True
         
-    objects = ProductManager()
-
+    objects = models.Manager()
+    active = ProductManager()
 
