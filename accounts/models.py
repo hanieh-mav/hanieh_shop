@@ -15,6 +15,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
     is_superuser = models.BooleanField(default=False, verbose_name='ادمین')
     is_shopadmin = models.BooleanField(default=False, verbose_name='مدیر فروشگاه')
+    is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     # this is for create super user in terminal
