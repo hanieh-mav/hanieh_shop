@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_admin','is_shopadmin')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (' اظلاعات شخصی', {'fields': ('first_name','last_name','phone','ostan','shahr','address')}),
+        (' اظلاعات شخصی', {'fields': ('first_name','last_name','phone','ostan','address')}),
 
         ('مجوزها', {'fields': ('is_admin','is_active','is_shopadmin')}),
     )

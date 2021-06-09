@@ -10,7 +10,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=150, unique=True, verbose_name='آدرس ایمیل')
     phone = models.CharField(max_length=11, verbose_name='موبایل', null=True, blank=True)
     ostan = models.CharField(max_length=50, verbose_name='استان', null=True, blank=True)
-    shahr = models.CharField(max_length=70, verbose_name='شهر', null=True, blank=True)
+    zipcode = models.IntegerField(verbose_name='کدپستی',blank=True,null=True)
     address = models.TextField(verbose_name='آدرس', null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
     is_superuser = models.BooleanField(default=False, verbose_name='ادمین')
@@ -18,7 +18,6 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    # this is for create super user in terminal
     REQUIRED_FIELDS = ['first_name', 'last_name','phone']
 
     objects = UserManger()
