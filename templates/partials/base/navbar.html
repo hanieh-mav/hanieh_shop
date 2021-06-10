@@ -16,7 +16,7 @@
                 {% category_navbar %}
             
                 <li class="nav-item"><a href="about.html" class="nav-link">فروت لند</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">تماس با ما</a></li>
+                <li class="nav-item"><a href="{% url 'contactus:contact_us' %}" class="nav-link">تماس با ما</a></li>
                 <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
                 {% if user.is_authenticated %}
