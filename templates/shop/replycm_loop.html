@@ -1,0 +1,54 @@
+<!-----------------------SHOW COMMNETS----------------------------------------->
+
+{% for cm in cm.romment.reply %}
+    <hr>
+    <div class="ps-review">
+      <div class="ps-review__content">
+        <header>
+					<p>{{cm.user.first_name}} {{cm.user.last_name}} در{{cm.created| timesince }} پیش:</p> 
+	  			</header>
+	  			<p>{{cm.body}}</p>
+				<button onclick="myFunction()" >پاسخ</button>
+				<hr>
+<!-----------------------ADD COMMENT REPLY  ------------------------------------------>  
+<form id='repcm' class="ps-product__review" method="post" action="{% url 'comment:add_reply' product.pk cm.pk %}" style="display: none;">
+  {% csrf_token %}
+  <h4>  پاسخ به این نظر</h4>
+  <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+      <div class="form-group">
+        <label>نظرشما:</label>
+        {{reply_form.body}}
+      </div>
+      <div class="form-group">
+        <button class="ps-btn ps-btn--sm">ارسال پاسخ<i class="ps-icon-next"></i></button>
+      </div>
+      </div>
+  </div>
+</form>
+<hr>
+     
+<!-----------------------END ADD REPLY------------------------------------------>
+<!-----------------------SHOW REPLY COMMNETS------------------------------------>
+        {% if cm.romment.reply %}
+          {% include 'shop/replycm_loop.html' %}
+        {% endif %}
+<!-----------------------END SHOW REPLY COMMNETS-------------------------------->
+      </div>
+    </div>
+
+{% endfor %}
+
+<!-----------------------END SHOW COMMNETS-------------------------------->
+
+
+<script>
+function myFunction2() {
+var x = document.getElementById("repcmloop");
+if (x.style.display === "none") {
+  x.style.display = "block";
+} else {
+  x.style.display = "none";
+}
+}
+</script>
