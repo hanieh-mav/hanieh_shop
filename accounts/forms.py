@@ -38,29 +38,42 @@ class UserChangeForm(forms.ModelForm):
         return self.initial['password']
 
 
-
-
 class LoginUserForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput)  
     password = forms.CharField(widget=forms.PasswordInput) 
    
    
 
-
-
-class RegisterUserForm(forms.Form):
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'خالی'}),label='Password')   
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'خالی'}),label='Password confirmation')  
+class RegisterUserForm(forms.ModelForm):
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={ 'required': 'true' }),label='گذرواژه')   
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={ 'required': 'true' }),label=' تکرار گذرواژه  ') 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'ostan', 'phone','zopcode', 'address', 'password')
+        fields = ('first_name', 'last_name','email', 'ostan', 'phone','zipcode', 'address', 'password1','password2')
         widgets = {
-            'phone': forms.NumberInput(attrs={'placeholder': 'خالی'}, ), 
-            'ostan': forms.TextInput(attrs={'placeholder': 'خالی'}, ),
-            'address': forms.Textarea(attrs={'placeholder': 'خالی'}, ),
-            'zipcode': forms.NumberInput(attrs={'placeholder': 'خالی'}, ),
-         
+            'phone': forms.TextInput(attrs={ 'required': 'true' }), 
+            'ostan': forms.TextInput(attrs={ 'required': 'true' }),
+            'address': forms.Textarea(attrs={ 'required': 'true' }),
+            'zipcode': forms.TextInput(attrs={ 'required': 'true' }),
         }
+    
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if email:
+            if User.objects.filter(email=email).exists():
+                raise forms.ValidationError('ایمیل نامعتبر است')
+        return email
+
+        
+
+    def clean_password(self):
+        cd = self.cleaned_data
+        if cd['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
+            raise forms.ValidationError('Password must match')
+        return cd['password2']
+
+
 
     def clean_ostan(self):
         ostan = self.cleaned_data['ostan']
@@ -80,30 +93,21 @@ class RegisterUserForm(forms.Form):
 
 
     def clean_zipcode(self):
-        code_meli = self.cleaned_data['zipcode']
-        if code_meli:
-            if len(code_meli) < 10:
+        zipcode = self.cleaned_data['zipcode']
+        zipcode = str(zipcode)
+        if zipcode:
+            if len(zipcode) < 10:
                 raise forms.ValidationError('یک کدپستی  معتبر وارد کنید')
-        return code_meli
+        return zipcode
+
 
 
     def clean_phone(self):
         phone = self.cleaned_data['phone']
         if phone:
-            if len(phone) < 11:
-                raise forms.ValidationError('شماره تلفن کوتاه است')
+            if len(phone) < 11 or User.objects.filter(phone=phone).exists():
+                raise forms.ValidationError('شماره تلفن نامعتبر است')
         return phone
 
 
-    def clean_first_name(self):
-        first_name = self.cleaned_data['first_name']
-        if len(first_name) < 3 or len(first_name) > 25 or not first_name.isalpha():
-            raise forms.ValidationError('یک نام معتبر وارد کنید')
-        return first_name
-
-
-    def clean_last_name(self):
-        last_name = self.cleaned_data['last_name']
-        if len(last_name) < 3 or len(last_name) > 40 or not last_name.isalpha():
-            raise forms.ValidationError('یک نام خانوادگی معتبر وارد کنید')
-        return last_name
+   
