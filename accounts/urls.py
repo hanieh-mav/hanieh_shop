@@ -3,12 +3,14 @@ from .views import (loginUser ,UserPassReset ,
 PassWordResetDone,
 PasswordResetConfirm,
 PasswordResetComplete,
-RegisterUser)
+RegisterUser,
+LogoutUser)
 
 app_name = 'accounts'
 
 urlpatterns = [
     path('login/',loginUser,name='login'),
+    path('logout/',LogoutUser,name='logout'),
     path('register/',RegisterUser,name='register'),
     path('reset/', UserPassReset.as_view(), name='password_reset'),
     path('reset/done/', PassWordResetDone.as_view(), name='password_reset_done'),
