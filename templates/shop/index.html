@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading"> انتخاب هوشمند محصولات ارگانیک</span>
+                <h2 class="mb-4">سرزمین میوه</h2>
+                <p>پیشنهاد ما به شما</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for product in products %} 
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="product">
+                    <a href="{% url 'shop:product_detaill' product.pk %}" class="img-prod"><img class="img-fluid" src="{{product.photo.url}}" alt="Colorlib Template">
+                    </a>
+                    <div class="text py-3 pb-4 px-3 text-center">
+                        <h3><a href="#">  {{product.name}} </a></h3>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price">
+                                    <span class="price-sale"> {{product.price}}</span>
+                                    <span class="price-sale"> تومان</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bottom-area d-flex px-3">
+                            <div class="m-auto d-flex">
+                                <a href="#"
+                                   class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    <span><i class="ion-ios-menu"></i></span>
+                                </a>
+                                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                    <span><i class="ion-ios-cart"></i></span>
+                                </a>
+                                <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                    <span><i class="ion-ios-heart"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+			<div class="col-md-12 heading-section text-center ftco-animate">
+		
+			  <p> هیچ محصولی یافت نشد</p>
+			</div>
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-----------------------Pagination--------------------------->
+{% if products.has_other_pages %}
+
+<div class="row mt-5">
+  <div class="col text-center">
+    <div class="block-27">
+      <ul>
+
+    
+        {% if products.has_previous %}
+        <li><a href="{% url 'shop:home' products.previous_page_number %}">&lt;</a></li>
+        {% else %}
+        <li  class="disabled"><a>&lt;</a></li>
+        {% endif %}
+
+        {% for i in products.paginator.page_range %}
+        {% if products.number == i %}
+        <li class="active"><span>{{i}}</span></li>
+        {% else %}
+        <li><a href="{% url 'shop:home' i %}">{{i}}</a></li>
+        {% endif %}
+       {% endfor %}
+
+
+        {% if products.has_next %}
+        <li><a href="{% url 'shop:home' products.next_page_number %}">&gt;</a></li>
+
+        {% else %}
+        <li class="disabled"><a >&gt;</a></li>
+        {% endif %}
+
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+      
+ 
+<!-----------------------End Pagination--------------------------->
+{% endif %}
+    
+</section>
+
+{% endblock %}

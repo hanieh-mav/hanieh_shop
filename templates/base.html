@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> {% block title %} حانیه شاپ{% endblock %} </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'shop/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'shop/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'shop/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'shop/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'shop/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'shop/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/bootstrap-rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+</head>
+
+<body class="goto-here">
+
+<!--header-->
+    {% include 'partials/base/header.html' %}
+<!--header-->
+
+
+
+<!--Start Nav-->
+    {% include 'partials/base/navbar.html' %}
+<!-- END nav -->
+
+
+
+<!--Start Slider-->
+    {% include 'partials/base/slider.html' %}
+<!--End Slider-->
+
+
+
+<!--Tozihat-->
+    {% include 'partials/base/description.html' %}
+<!--End Tozihat-->
+
+
+
+<!--messages-->
+    {% include 'partials/base/messages.html' %}
+<!--End messages-->
+
+
+{% block content %}
+
+{% endblock %}
+
+
+
+
+<!--Start Subscribe-->
+    {% include 'partials/base/subscribe.html' %}
+<!--End Subscribe-->
+
+
+<!--Start Footer-->
+    {% include 'partials/base/footer.html' %}
+<!--End Footer-->
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="{% static 'shop/js/jquery.min.js' %}"></script>
+<script src="{% static 'shop/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'shop/js/popper.min.js' %}"></script>
+<script src="{% static 'shop/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'shop/js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'shop/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'shop/js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'shop/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'shop/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'shop/js/aos.js' %}"></script>
+<script src="{% static 'shop/js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'shop/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'shop/js/scrollax.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{% static 'shop/js/google-map.js' %}"></script>
+<script src="{% static 'shop/js/main.js' %}"></script>
+
+</body>
+</html>
