@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'comment.apps.CommentConfig',
     'accounts.apps.AccountsConfig',
+    'setting.apps.SettingConfig',
+    'contactus.apps.ContactusConfig',
 ]
 
 

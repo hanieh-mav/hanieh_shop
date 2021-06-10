@@ -66,3 +66,6 @@ def RegisterUser(request):
     return render(request,'accounts/register.html',{'form':form})
 
 
+def LogoutUser(request):
+    logout(request)
+    return redirect('shop:home')

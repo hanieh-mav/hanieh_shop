@@ -59,7 +59,72 @@
           	<p><a href="cart.html" class="btn btn-black py-3 px-5">اضافه به سبد خرید </a></p>
     			</div>
     		</div>
+
+<!-----------------------SHOW COMMNETS------------------------------------------>          
+	{% for cm in comment %}
+		{% if cm.reply == None %}
+  			<div class="ps-review">
+				<div class="ps-review__content">
+	 			<header>
+					<p>{{cm.user.first_name}} {{cm.user.last_name}} در{{cm.created| timesince }} پیش:</p> 
+	  			</header>
+	  			<p>{{cm.body}}</p>
+				<button onclick="myFunction()" >پاسخ</button>
+				
+<!-----------------------ADD COMMENT REPLY  ------------------------------------------>  
+		<form id='repcm' class="ps-product__review" method="post" action="{% url 'comment:add_reply' product.pk cm.pk %}" style="display: none;">
+				{% csrf_token %}
+				<h4>  پاسخ به این نظر</h4>
+				<div class="row">
+					  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+						<div class="form-group">
+						  <label>نظرشما:</label>
+						  {{reply_form.body}}
+						</div>
+						<div class="form-group">
+						  <button class="ps-btn ps-btn--sm">ارسال پاسخ<i class="ps-icon-next"></i></button>
+						</div>
+					  </div>
+				</div>
+  		</form>
+		  <hr>
+<!-----------------------END ADD REPLY------------------------------------------>
+<!-----------------------SHOW REPLY COMMNETS------------------------------------>
+	  {% if cm.romment.reply %}
+		{% include 'shop/replycm_loop.html' %}
+	  {% endif %}
+<!-----------------------END SHOW REPLY COMMNETS-------------------------------->
+	</div>
+  </div>
+{% endif %}
+{% endfor %}
+
+<!-----------------------END SHOW COMMNETS-------------------------------->
+
+
+<!-----------------------ADD  COMMNETS------------------------------------->
+
+			<form class="ps-product__review" method="post" action="{% url 'comment:add_comment' product.pk %}">
+				{% csrf_token %}
+				<h4>اضافه کردن نظر</h4>
+				<div class="row">
+					  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+						<div class="form-group">
+						  <label>نظرشما:</label>
+						  {{comment_form.body}}
+						</div>
+						<div class="form-group">
+						  <button class="ps-btn ps-btn--sm">ارسال نظر<i class="ps-icon-next"></i></button>
+						</div>
+					  </div>
+				</div>
+  			</form>
+<!-----------------------END ADD COMMNETS-------------------------------->
+
+
     	</div>
+
+		
     </section>
 
     <section class="ftco-section">
@@ -68,7 +133,6 @@
           <div class="col-md-12 heading-section text-center ftco-animate">
           	<span class="subheading">محصولات</span>
             <h2 class="mb-4">محصولات مشابه</h2>
-            <p>سلامتی خود را تضمین کنید</p>
           </div>
         </div>   		
     	</div>
@@ -118,9 +182,23 @@
     	</div>
     </section>
 
-
+	<script>
+        function myFunction() {
+          var x = document.getElementById("repcm");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+  </script>
 
 {% endblock %}
+
+
+
+
+
 
 
   <script>
@@ -158,7 +236,12 @@
 		    });
 		    
 		});
+
+
+	
+			
 	</script>
+
     
   </body>
 </html>

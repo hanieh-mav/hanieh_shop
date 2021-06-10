@@ -1,8 +1,10 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from .models import Product , Category
+from comment.models import Comment
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
+from comment.forms import CommentForm
 
 
 # Create your views here.
@@ -32,10 +34,16 @@ class ProductDetail(DetailView):
         product = Product.objects.get(pk=self.kwargs['pk'])
         related_products = Product.active.filter(category__in=product.category.all()).distinct()     
         related_products = related_products.exclude(id=product.id)[:4]
+        comment = Comment.objects.filter(product=product)
+        comment_form = CommentForm
+        reply_form = CommentForm
 
 
         context.update({
             'related_products': related_products,
+            'comment' : comment,
+            'comment_form':comment_form,
+            'reply_form':reply_form,
 
         })
         return context
