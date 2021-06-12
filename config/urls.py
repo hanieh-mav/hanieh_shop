@@ -9,4 +9,5 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('comment/',include('comment.urls')),
     path('contact/',include('contactus.urls')),
+    path('cart/',include('cart.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

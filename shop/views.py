@@ -1,10 +1,10 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from .models import Product , Category
 from comment.models import Comment
-from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
 from comment.forms import CommentForm
+
 
 
 # Create your views here.
