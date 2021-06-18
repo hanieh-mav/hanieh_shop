@@ -161,3 +161,8 @@ EMAIL_HOST_USER = 'haniehproject.it@gmail.com'
 EMAIL_HOST_PASSWORD = 'conshxivhysbptmj'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#REDIS
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0

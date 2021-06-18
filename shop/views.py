@@ -4,8 +4,7 @@ from comment.models import Comment
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
 from comment.forms import CommentForm
-
-
+from cart.forms import CartAddForm
 
 # Create your views here.
 
@@ -24,6 +23,7 @@ def category_detail(request,slug,page=1):
     return render(request,'shop/index.html',{'products':products}) 
 
 
+
 class ProductDetail(DetailView):
     def get_queryset(self,**kwargs):
         pk = self.kwargs.get('pk')
@@ -37,6 +37,7 @@ class ProductDetail(DetailView):
         comment = Comment.objects.filter(product=product)
         comment_form = CommentForm
         reply_form = CommentForm
+        cart_form = CartAddForm
 
 
         context.update({
@@ -44,6 +45,7 @@ class ProductDetail(DetailView):
             'comment' : comment,
             'comment_form':comment_form,
             'reply_form':reply_form,
+            'cart_form':CartAddForm
 
         })
         return context

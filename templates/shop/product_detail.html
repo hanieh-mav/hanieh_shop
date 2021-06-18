@@ -39,10 +39,10 @@
 							</div>
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
-								<form method="POST" >
+								<form method="POST" action="{% url 'cart:cart_add' product.pk %}" >
 									{% csrf_token %}
-									<input  value="1" min="1" name='quantity'>
-									<button class="ps-btn mb-10" >Add to cart<i class="ps-icon-next"></i></button>
+									{{cart_form}}
+									<button class="ps-btn mb-10" >اضافه به سبد خرید  <i class="ps-icon-next"></i></button>
 								  </form>
 	          	</div>
 	          	<div class="w-100"></div>
@@ -50,9 +50,7 @@
 	          		<p style="color: #000;">موجودی {{product.storage}} عدد </p>
 	          	</div>
           	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5">اضافه به سبد خرید </a></p>
-    			</div>
-    		</div>
+          	
 
 <!-----------------------SHOW COMMNETS------------------------------------------>          
 	{% for cm in comment %}
