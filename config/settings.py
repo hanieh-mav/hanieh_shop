@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contactus.apps.ContactusConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig'
+    'dashboard.apps.DashboardConfig',
 ]
 
 
