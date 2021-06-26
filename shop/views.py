@@ -17,7 +17,7 @@ def home(request,page=1):
 
 def category_detail(request,slug,page=1):
     category = get_object_or_404(Category,slug=slug)
-    product = category.pcat.active()
+    product = category.pcat.filter(is_active=True,status='p',storage__gt=0)
     paginator = Paginator(product,8)
     products = paginator.get_page(page)
     return render(request,'shop/index.html',{'products':products}) 
