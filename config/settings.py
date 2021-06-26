@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'dashboard.apps.DashboardConfig',
+    'sellers.apps.SellersConfig',
 
     'crispy_forms',
 ]
