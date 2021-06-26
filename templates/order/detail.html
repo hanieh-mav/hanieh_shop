@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} ارتباط با ما  {% endblock %}
+
+{% block content %}
+ 
+
+
+<section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 ftco-animate">
+              <p>ادرس ارسال</p>
+              <p>{{order.user.full_address}}</p>
+                  </div>
+
+                  <form action="{% url 'orders:coupon_apply' order.id %}" class="info" method="POST">
+                    <div class="form-group">
+                        <label for="">استفاده از حروف کوچک و بزرگ الزامیست</label>
+                        {% csrf_token %}
+                            {{ form }}
+                        <input type="submit" value="اعمال">
+                    </div>
+                </form>
+                  <div class="col-xl-5">
+            <div class="row mt-5 pt-3">
+                <div class="col-md-12 d-flex mb-5">
+                    <div class="cart-detail cart-total p-3 p-md-4">
+                        <h3 class="billing-heading mb-4">جمع کل صورتحساب</h3>
+                        
+                        {% if order.discount %}
+                              <p class="d-flex">
+                                  <span>تخفیف</span>
+                                  <span>{{order.discount}} درصد</span>
+                              </p>
+                        {% endif %}
+                              <hr>
+                              <p class="d-flex total-price">
+                                  <span>مجموع</span>
+                                  <span>{{order.get_total_price}} تومان</span>
+                              </p>
+                              </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="cart-detail p-3 p-md-4">
+                        <h3 class="billing-heading mb-4">روش های پرداخت</h3>
+                                  <div class="form-group">
+                                      <div class="col-md-12">
+                                          <div class="radio">
+                                             <label><input type="radio" name="optradio" class="mr-2"> از طریق درگاه بانکی</label>
+                                          </div>
+            
+                </div>
+            </div>
+        </div> <!-- .col-md-8 -->
+      </div>
+    </div>
+  </section> <!-- .section -->
+
+{% endblock %}

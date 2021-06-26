@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'setting.apps.SettingConfig',
     'contactus.apps.ContactusConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig'
 ]
 
 
@@ -162,7 +163,3 @@ EMAIL_HOST_PASSWORD = 'conshxivhysbptmj'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-#REDIS
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
