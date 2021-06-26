@@ -22,7 +22,7 @@ def loginUser(request):
                 login(request,user)
                 messages.success(request, 'you logged in successfully', 'success')
                 if user.is_admin or user.is_shopadmin :
-                    return redirect('shop:home')
+                    return redirect('dashboard:index')
                 else:
                     return redirect('shop:home')
             else:

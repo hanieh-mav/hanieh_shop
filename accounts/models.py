@@ -43,4 +43,8 @@ class User(AbstractBaseUser):
 
     def full_address(self):
         return '{}-{}-{}'.format(self.ostan,self.address,self.zipcode)
+
+
+    def get_absolute_url(self):
+        return reverse('dashboard:user-list')
  

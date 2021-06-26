@@ -31,7 +31,7 @@
           <td>{{product.price}}</td>
           <td>{{product.storage}}</td>
           <td>
-              {% if product.available  %}
+              {% if product.is_active  %}
               <span class="fas fa-check" style="color: green;"></span>
               {% else %}
               <span class="fa fa-times" style="color: red;"></span>
@@ -40,7 +40,7 @@
           <td>
               {% if product.status == 'p' %}
               <span class="badge badge-success"> published </span>
-              <a target="_blank" href="{% url 'shop:detail' product.slug %}" class="badge badge-primary">show in site</a>
+              <a target="_blank" href="{% url 'shop:product_detaill' product.pk %}" class="badge badge-primary">show in site</a>
               {% else %}
               <span class="badge badge-danger"> draft </span>
               <a target="_blank" href="{% url 'dashboard:preview' product.pk %}" class="badge badge-secondary"> Preview </a>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
+from django.shortcuts import reverse
 
 
 # Create your models here.
@@ -74,6 +75,9 @@ class Product(models.Model):
         else:
             return True
         
+    def get_absolute_url(self):
+        return reverse('dashboard:index')
+
     objects = models.Manager()
     active = ProductManager()
 

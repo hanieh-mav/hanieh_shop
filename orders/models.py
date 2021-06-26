@@ -32,6 +32,11 @@ class Order(models.Model):
             return int( total - discount_price )
         return total
 
+
+    def get_absolute_url(self):
+        return reverse('dashboard:order')
+  
+
   
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item',verbose_name='ایتم ها')
