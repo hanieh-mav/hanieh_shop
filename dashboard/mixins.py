@@ -1,6 +1,15 @@
 from django.shortcuts import render , Http404 , get_object_or_404
 from shop.models import Product
+from accounts.models import User
     
+
+class AccessListProductMixin():
+    def dispatch(self, request  ,*args , **kwargs):
+        if request.user.is_active and request.user.is_shopadmin or request.user.is_admin or request.user.is_seller:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404("You don't have access to this page")
+
 
 class AccessUserMixin():
     def dispatch(self, request  ,*args , **kwargs):
@@ -61,3 +70,11 @@ class AccessDeleteMixin():
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404("You don't have access to this page")
+
+
+
+
+
+
+
+

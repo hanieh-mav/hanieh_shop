@@ -15,7 +15,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         (' اظلاعات شخصی', {'fields': ('first_name','last_name','phone','ostan','zipcode','address')}),
 
-        ('مجوزها', {'fields': ('is_admin','is_active','is_shopadmin')}),
+        ('مجوزها', {'fields': ('is_admin','is_active','is_shopadmin','is_seller')}),
     )
 
     add_fieldsets = (

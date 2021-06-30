@@ -1,27 +1,32 @@
+from django.contrib import messages
+from django.http import request
 from django.shortcuts import render , redirect , Http404 , get_object_or_404 
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView , ListView , DetailView , UpdateView , DeleteView)
 from shop.models import Product
-from .mixins import (AccessUserMixin,FieldMixin , FormValifMixin , AccessMixin , DetailViewMixin ,
-AccessDeleteMixin )
+from .mixins import ( AccessUserMixin,FieldMixin , FormValifMixin , AccessMixin , DetailViewMixin ,
+AccessDeleteMixin , AccessListProductMixin )
 from orders.models import Order 
 from accounts.models import User
+from sellers.models import Seller
 # Create your views here.
 
 
-class ProductList(ListView):
+class ProductList(AccessListProductMixin,ListView):
     template_name = 'dashboard/product_list.html'
     paginate_by = 6
     def get_queryset(self):
-        if self.request.user.is_admin or self.request.user.is_shopadmin:
+        if self.request.user.is_admin or self.request.user.is_shopadmin or self.request.user.is_seller:
             return Product.objects.all()
         else:
             raise Http404("You don't have access to this page")
 
 
+
 class CreateProduct(AccessUserMixin,FieldMixin,FormValifMixin,CreateView):
     model = Product
     template_name = 'dashboard/product_create.html'
+
 
 
 class PreviewProduct(AccessUserMixin,DetailView):
@@ -38,9 +43,11 @@ class PreviewProduct(AccessUserMixin,DetailView):
         return context
 
 
+
 class UpdateProduct(AccessMixin,FieldMixin,FormValifMixin,UpdateView):
     model = Product
     template_name = 'dashboard/product_create.html'
+
 
 
 class DeleteProduct(AccessMixin,DeleteView):
@@ -91,7 +98,28 @@ class UserDetail(AccessDeleteMixin,DetailViewMixin, UpdateView):
     fields = ['is_shopadmin']
 
 
+
 class DeleteUser(AccessDeleteMixin,DeleteView):
     model = User
     template_name = 'dashboard/delete.html'
     success_url = reverse_lazy('dashboard:user-list')
+
+
+
+class SellerList(AccessDeleteMixin,ListView):
+    template_name = 'dashboard/seller_list.html'
+    paginate_by = 6
+    def get_queryset(self):
+        if self.request.user.is_admin:
+            return Seller.objects.all()
+        else:
+            raise Http404("You don't have access to this page")
+
+
+
+class SellerDetail(AccessDeleteMixin,DetailViewMixin, UpdateView):
+    details_model = Seller
+    context_detail_object_name = 'seller'
+    model = Seller
+    template_name = 'dashboard/detail_seller.html'
+    fields = ['is_active']

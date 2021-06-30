@@ -21,7 +21,14 @@
     <hr class="sidebar-divider">
     
     <!------------------- Nav Items----------------->
-    
+    {% if user.is_seller %}
+  
+    <a href="{% url 'sellers:profile-update' user.pk %}" class="nav-link ">
+        <i class="fa fa-edit nav-icon"></i>
+        <span>complete profile</span>
+    </a>
+
+    {% endif %}
         {% link request 'index' 'List Product' 'bars' %}
 
     
@@ -31,8 +38,9 @@
         {% link request 'order' 'Orders' 'bars' %}
 
     {% if user.is_admin %}
-  
+    
         {% link request 'user-list' 'Access Users' 'bars' %}
+        {% link request 'seller-list' 'Seller list' 'bars' %}
 
     {% endif %}
 

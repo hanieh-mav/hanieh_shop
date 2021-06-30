@@ -15,6 +15,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
     is_superuser = models.BooleanField(default=False, verbose_name='ادمین')
     is_shopadmin = models.BooleanField(default=False, verbose_name='مدیر فروشگاه')
+    is_seller = models.BooleanField(default=False, verbose_name='تامین کننده')
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -43,6 +44,10 @@ class User(AbstractBaseUser):
 
     def full_address(self):
         return '{}-{}-{}'.format(self.ostan,self.address,self.zipcode)
+
+
+    def full_name(self):
+        return '{} {}'.format(self.first_name,self.last_name,)
 
 
     def get_absolute_url(self):

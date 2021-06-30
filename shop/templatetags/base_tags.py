@@ -20,7 +20,7 @@ def shop_setting():
 
 
 @register.inclusion_tag('dashboard/partials/link.html')
-def link(request , link_name , content , classes):
+def link(request , link_name  , content , classes ):
     return {
         'request' : request ,
         'link_name' : link_name ,

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.html import format_html
 from django.shortcuts import reverse
-
+from sellers.models import Seller
 
 # Create your models here.
 
@@ -44,6 +44,7 @@ class Product(models.Model):
     price = models.PositiveBigIntegerField(verbose_name='قیمت',default=0.0)
     status = models.CharField(max_length=1,choices=STATUS_CHOICES,default='d', verbose_name=' وضعیت انتشار')
     is_active = models.BooleanField(verbose_name='فعال / غیر فعال', default=True)
+    seller = models.ManyToManyField(Seller,blank=True,related_name='seller')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -63,10 +64,12 @@ class Product(models.Model):
     image_tag.short_description = 'تصویر'    
 
 
-
     def category_to_str(self):
         return '-'.join([category.name for category in self.category.all()])
 
+
+    def seller_to_str(self):
+        return '-'.join([seller.name for seller in self.seller.all()])
 
     @property
     def is_availble(self):
@@ -74,6 +77,7 @@ class Product(models.Model):
             return False
         else:
             return True
+        
         
     def get_absolute_url(self):
         return reverse('dashboard:index')

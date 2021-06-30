@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (ProductList , CreateProduct , PreviewProduct , UpdateProduct , DeleteProduct , OrderList,
-OrderDetail , DeleteOrder , UserList , UserDetail , DeleteUser)
+OrderDetail , DeleteOrder , UserList , UserDetail , DeleteUser , SellerList , SellerDetail)
 
 
 
@@ -18,5 +18,7 @@ urlpatterns = [
     path('user/list', UserList.as_view(), name = 'user-list'),
     path('user/<int:pk>',UserDetail.as_view(),name='user-detail'),
     path('delete/user/<int:pk>', DeleteUser.as_view(), name = 'delete-user'),
+    path('seller/list', SellerList.as_view(), name = 'seller-list'),
+    path('seller/<int:pk>',SellerDetail.as_view(),name='seller-detail'),
     
 ]

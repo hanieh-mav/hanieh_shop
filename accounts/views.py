@@ -21,7 +21,7 @@ def loginUser(request):
             if user is not None:
                 login(request,user)
                 messages.success(request, 'you logged in successfully', 'success')
-                if user.is_admin or user.is_shopadmin :
+                if user.is_admin or user.is_shopadmin or user.is_seller :
                     return redirect('dashboard:index')
                 else:
                     return redirect('shop:home')
