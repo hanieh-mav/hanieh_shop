@@ -16,3 +16,15 @@ def shop_setting():
     return {
         'setting': Setting.objects.last()
      }
+
+
+
+@register.inclusion_tag('dashboard/partials/link.html')
+def link(request , link_name  , content , classes ):
+    return {
+        'request' : request ,
+        'link_name' : link_name ,
+        'link': "dashboard:{}".format(link_name),
+        'content' : content ,
+        'classes' : classes ,
+    }

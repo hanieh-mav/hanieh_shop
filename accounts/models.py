@@ -10,11 +10,12 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=150, unique=True, verbose_name='آدرس ایمیل')
     phone = models.CharField(max_length=11, verbose_name='موبایل', null=True, blank=True)
     ostan = models.CharField(max_length=50, verbose_name='استان', null=True, blank=True)
-    zipcode = models.IntegerField(verbose_name='کدپستی',blank=True,null=True)
+    zipcode = models.CharField(verbose_name='کدپستی',blank=True,null=True,max_length=10)
     address = models.TextField(verbose_name='آدرس', null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
     is_superuser = models.BooleanField(default=False, verbose_name='ادمین')
     is_shopadmin = models.BooleanField(default=False, verbose_name='مدیر فروشگاه')
+    is_seller = models.BooleanField(default=False, verbose_name='تامین کننده')
     is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -41,4 +42,14 @@ class User(AbstractBaseUser):
         return self.is_admin            
 
 
+    def full_address(self):
+        return '{}-{}-{}'.format(self.ostan,self.address,self.zipcode)
+
+
+    def full_name(self):
+        return '{} {}'.format(self.first_name,self.last_name,)
+
+
+    def get_absolute_url(self):
+        return reverse('dashboard:user-list')
  

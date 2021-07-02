@@ -1,11 +1,10 @@
 from django.shortcuts import render , get_object_or_404 , redirect
 from .models import Product , Category
 from comment.models import Comment
-from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
 from comment.forms import CommentForm
-
+from cart.forms import CartAddForm
 
 # Create your views here.
 
@@ -18,10 +17,11 @@ def home(request,page=1):
 
 def category_detail(request,slug,page=1):
     category = get_object_or_404(Category,slug=slug)
-    product = category.pcat.active()
+    product = category.pcat.filter(is_active=True,status='p',storage__gt=0)
     paginator = Paginator(product,8)
     products = paginator.get_page(page)
     return render(request,'shop/index.html',{'products':products}) 
+
 
 
 class ProductDetail(DetailView):
@@ -37,6 +37,7 @@ class ProductDetail(DetailView):
         comment = Comment.objects.filter(product=product)
         comment_form = CommentForm
         reply_form = CommentForm
+        cart_form = CartAddForm
 
 
         context.update({
@@ -44,6 +45,7 @@ class ProductDetail(DetailView):
             'comment' : comment,
             'comment_form':comment_form,
             'reply_form':reply_form,
+            'cart_form':CartAddForm
 
         })
         return context

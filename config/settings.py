@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'setting.apps.SettingConfig',
     'contactus.apps.ContactusConfig',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
+    'dashboard.apps.DashboardConfig',
+    'sellers.apps.SellersConfig',
+
+    'crispy_forms',
 ]
 
 
@@ -160,3 +166,4 @@ EMAIL_HOST_USER = 'haniehproject.it@gmail.com'
 EMAIL_HOST_PASSWORD = 'conshxivhysbptmj'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+

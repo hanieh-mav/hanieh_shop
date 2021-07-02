@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>نام محصول</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
+                            <th>جمع کل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                    {% for item in cart %}
+                        <tr class="text-center">
+                            <td class="product-remove"><a href="{% url 'cart:cart_remove' item.product.pk %}"><span class="ion-ios-close"></span></a></td>
+
+                            <td class="image-prod">
+                                <a class="img" href="{% url 'shop:product_detaill' item.product.pk %}">
+                                <<img class="mr-15" style="width: 100px; height :100px" src="{{item.product.photo.url}}" alt="">
+                                </a>
+                            </td>
+
+                            <td class="product-name">
+                                <h3> {{item.product.name}}</h3>
+                                
+                            </td>
+
+                            <td class="price">{{item.price}} تومان</td>
+
+                            <td class="quantity">
+                                {{item.quantity}}
+                            </td>
+
+                            <td class="total">{{item.total_price}} تومان</td>
+                        </tr><!-- END TR-->
+
+                    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+        
+            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3>صورت حساب</h3>
+                    <p class="d-flex total-price">
+                        <span>جمع کل</span>
+                        <span>{{cart.get_total_price}} تومان</span>
+                    </p>
+                </div>
+                <p><a href="{% url 'orders:create' %}" class="btn btn-primary py-3 px-4">پرداخت</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

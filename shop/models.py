@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
-
+from django.shortcuts import reverse
 
 # Create your models here.
 
@@ -27,6 +27,8 @@ class Category(models.Model):
 class ProductManager(models.Manager):
     def active(self):
         return super(ProductManager, self).get_queryset().filter(is_active=True,status='p',storage__gt=0)
+
+
 
 
 class Product(models.Model):
@@ -62,9 +64,10 @@ class Product(models.Model):
     image_tag.short_description = 'تصویر'    
 
 
-
     def category_to_str(self):
         return '-'.join([category.name for category in self.category.all()])
+
+
 
 
     @property
@@ -74,6 +77,10 @@ class Product(models.Model):
         else:
             return True
         
+        
+    def get_absolute_url(self):
+        return reverse('dashboard:index')
+
     objects = models.Manager()
     active = ProductManager()
 
