@@ -11,6 +11,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th>seller</th>
         <th>name</th>
         <th>photo</th>
         <th>description</th>
@@ -24,6 +25,11 @@
     <tbody>
         {% for product in object_list %}
         <tr>
+          <td>
+            {% for seller in product.product.all %}
+              {{seller.company_name}}-
+            {% endfor %}
+          </td>
           <td><a href="{% url 'dashboard:update' product.pk %}">{{product.name}}</a></td>
           <td><img src="{{product.photo.url}}" width="70" height="40"></td>
           <td>{{product.description|truncatewords:3}}</td>

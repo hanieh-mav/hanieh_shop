@@ -3,11 +3,14 @@ from django.contrib.auth import get_user_model
 from django.db.models.fields.related import OneToOneField
 from django.db.models.signals import post_save
 from django.shortcuts import reverse
+from shop.models import Product
+
 
 # Create your models here.
 
 
 class Seller(models.Model):
+    products = models.ManyToManyField(Product,blank=True,related_name='product')
     user = OneToOneField(get_user_model(),verbose_name='کاربر',on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100,verbose_name='اسم شرکت')
     logo = models.ImageField(upload_to = 'logo/%Y/%M/%d', verbose_name='لوگو')
@@ -24,6 +27,9 @@ class Seller(models.Model):
     def get_absolute_url(self): 
         return reverse('dashboard:index')
 
+
+    def product_to_str(self):
+        return '-'.join([product.name for product in self.products.all()])
 
 
 def save_seller(sender, **kwargs):

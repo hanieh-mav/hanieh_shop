@@ -22,12 +22,19 @@
     
     <!------------------- Nav Items----------------->
     {% if user.is_seller %}
-  
+    <li class="nav-item  active ">
+
     <a href="{% url 'sellers:profile-update' user.pk %}" class="nav-link ">
         <i class="fa fa-edit nav-icon"></i>
         <span>complete profile</span>
     </a>
 
+    <a href="{% url 'sellers:product_seller' user.pk %}" class="nav-link  ">
+        <i class="fa fa-edit nav-icon"></i>
+        <span>Add Product (For seller)</span>
+    </a>
+    </li>
+    
     {% endif %}
         {% link request 'index' 'List Product' 'bars' %}
 

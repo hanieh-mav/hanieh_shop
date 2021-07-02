@@ -5,14 +5,14 @@ from django.urls import reverse_lazy
 from django.views.generic import (CreateView , ListView , DetailView , UpdateView , DeleteView)
 from shop.models import Product
 from .mixins import ( AccessUserMixin,FieldMixin , FormValifMixin , AccessMixin , DetailViewMixin ,
-AccessDeleteMixin , AccessListProductMixin )
+AccessDeleteMixin ,  )
 from orders.models import Order 
 from accounts.models import User
 from sellers.models import Seller
 # Create your views here.
 
 
-class ProductList(AccessListProductMixin,ListView):
+class ProductList(ListView):
     template_name = 'dashboard/product_list.html'
     paginate_by = 6
     def get_queryset(self):
@@ -114,7 +114,6 @@ class SellerList(AccessDeleteMixin,ListView):
             return Seller.objects.all()
         else:
             raise Http404("You don't have access to this page")
-
 
 
 class SellerDetail(AccessDeleteMixin,DetailViewMixin, UpdateView):

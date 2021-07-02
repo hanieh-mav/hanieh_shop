@@ -1,10 +1,14 @@
-from django.shortcuts import render , redirect , get_object_or_404
+from shop.models import Product
+from django.shortcuts import render , redirect , get_object_or_404 
+from django.http import Http404
 from django.contrib import messages
 from accounts.forms import RegisterUserForm
 from accounts.models import User
 from django.contrib.auth import login
 from .models import Seller
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView , ListView
+from .forms import CreateProductForm
+from orders.models import Order
 
 
 # Create your views here.
@@ -28,6 +32,7 @@ def RegisterSeller(request):
 
 
 
+
 class ProfileUpdate(UpdateView):
     model = Seller
     template_name = 'dashboard/profile_update.html'
@@ -37,3 +42,18 @@ class ProfileUpdate(UpdateView):
         user = get_object_or_404(User,pk=self.kwargs['pk'])
         seller = Seller.objects.get(user=user)
         return seller
+
+
+
+class CreateSellerProduct(UpdateView):
+    model = Seller
+    template_name = 'dashboard/seller_product.html'
+    form_class = CreateProductForm
+
+    def get_object(self):
+        user = get_object_or_404(User,pk=self.kwargs['pk'])
+        seller = Seller.objects.get(user=user)
+        return seller
+
+
+

@@ -23,7 +23,7 @@
     <tbody>
         {% for order in object_list %}
         <tr>
-          <td><a href="{% url 'dashboard:order-detail' order.pk %}">{{order.user}}</td>
+          <td><a href="{% url 'dashboard:order-detail' order.pk %}">{{order.user.full_name}}</td>
           <td>{{order.get_total_price}}</td>
           <td>
               {% if order.is_paid  %}

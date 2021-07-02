@@ -1,29 +1,31 @@
+from sellers.models import Seller
 from django.shortcuts import render , Http404 , get_object_or_404
 from shop.models import Product
 from accounts.models import User
     
 
-class AccessListProductMixin():
-    def dispatch(self, request  ,*args , **kwargs):
-        if request.user.is_active and request.user.is_shopadmin or request.user.is_admin or request.user.is_seller:
-            return super().dispatch(request, *args, **kwargs)
-        else:
-            raise Http404("You don't have access to this page")
-
-
 class AccessUserMixin():
     def dispatch(self, request  ,*args , **kwargs):
+        user = get_object_or_404(User,pk=request.user.id)
+     
         if request.user.is_shopadmin or request.user.is_admin:
             return super().dispatch(request, *args, **kwargs)
+        elif request.user.is_seller :
+            seller = Seller.objects.get(user=user)
+            if seller.is_active:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                raise Http404("You don't have access to this page you are not active")
         else:
             raise Http404("You don't have access to this page")
+
 
 
 class FieldMixin():
     def dispatch(self, request , *args , **kwargs):
         if request.user.is_admin:
             self.fields = ['name','slug','category','photo','description','storage','is_active','price','status']
-        elif request.user.is_shopadmin:
+        elif request.user.is_shopadmin or request.user.is_seller:
             self.fields = ['name','slug','category','photo','description','storage','is_active','price']
         else:
             Http404("You don't have access to this page")
