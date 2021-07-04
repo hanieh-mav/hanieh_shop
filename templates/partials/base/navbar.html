@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="#">فروت لند</a>
+        <a class="navbar-brand" href="{% url 'shop:home' %}">حانیه شاپ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> منو
@@ -14,20 +14,22 @@
                 <li class="nav-item active"><a href="{% url 'shop:home' %}" class="nav-link">خانه</a></li>
 
                 {% category_navbar %}
-            
-                <li class="nav-item"><a href="about.html" class="nav-link">فروت لند</a></li>
-                <li class="nav-item"><a href="{% url 'contactus:contact_us' %}" class="nav-link">تماس با ما</a></li>
-                <li class="nav-item cta cta-colored"><a href="{% url 'cart:detail' %}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
+                <li class="nav-item"><a href="{% url 'contactus:contact_us' %}" class="nav-link">تماس با ما</a></li>
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link"> خروج</a></li>
-                <li class="nav-item"> <a href="{% url 'accounts:logout' %}" class="nav-link">{{user.first_name}} {{user.last_name}}</a></li>
+                <li class="nav-item"> <a href="{% url 'accounts:logout' %}" class="nav-link">{{user.full_name}}</a></li>
+                    {% if user.is_authenticated and user.is_shopadmin or user.is_admin or user.is_seller %}
+                        <li class="nav-item"><a href="{% url 'dashboard:index' %}" class="nav-link"> داشبورد</a></li> 
+                    {% endif %}
                 {% else %}
                 <li class="nav-item"><a href="{% url 'accounts:login' %}" class="nav-link"> ورود </a></li>
                 {% endif %}
                 <li class="nav-item"><a href="{% url 'accounts:register' %}" class="nav-link"> ثبت نام   </a></li>
 
                 <li class="nav-item"><a href="{% url 'sellers:register-seller' %}" class="nav-link"> ثبت نام تامین کننده </a></li>
+                <li class="nav-item cta cta-colored"><a href="{% url 'cart:detail' %}" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+
 
 
             </ul>

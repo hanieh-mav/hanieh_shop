@@ -13,6 +13,9 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 def loginUser(request):
+
+    """In This View Login with email and password and as role redirect to there page """
+
     if request.method == 'POST':
         form = LoginUserForm(request.POST)
         if form.is_valid():
@@ -33,25 +36,40 @@ def loginUser(request):
 
 
 class UserPassReset(auth_view.PasswordResetView):
+
+    """In This View User enter email and get changr password email """
+
     template_name = 'accounts/password_reset_form.html'
     success_url = reverse_lazy('accounts:password_reset_done')
     email_template_name = 'accounts/password_reset_email.html'
 
 
 class PassWordResetDone(auth_view.PasswordResetDoneView):
+
+    """In This View we send user to this page to say email sent"""
+
     template_name = 'accounts/reset_done.html'
 
 
 class PasswordResetConfirm(auth_view.PasswordResetConfirmView):
+
+    """In This View when user clicl on email link sen user to change pass"""
+
     template_name = 'accounts/password_reset_confirm.html'
     success_url = reverse_lazy('accounts:password_reset_complete')
 
 
 class PasswordResetComplete(auth_view.PasswordResetCompleteView):
+
+    """In This View tell user changing is success or not """
+
     template_name = 'accounts/password_reset_complete.html'
 
 
 def RegisterUser(request):
+
+    """In This View register user """
+
     if request.method == "POST":
         form =RegisterUserForm(request.POST)
         if form.is_valid():
