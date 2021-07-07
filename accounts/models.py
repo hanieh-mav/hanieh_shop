@@ -2,13 +2,16 @@ from django.shortcuts import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManger
+from django.core.validators import RegexValidator
+
+phone_regex = RegexValidator(regex=r'^\d{10}$',message='Phone number must be entered in the format:''9137866088')
 
 # Create your models here.
 class User(AbstractBaseUser):
     first_name = models.CharField(max_length=100, verbose_name='نام')
     last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی')
     email = models.EmailField(max_length=150, unique=True, verbose_name='آدرس ایمیل')
-    phone = models.CharField(max_length=11, verbose_name='موبایل', null=True, blank=True)
+    phone = models.CharField(max_length=11, validators=[phone_regex] ,verbose_name='موبایل', null=True, blank=True)
     ostan = models.CharField(max_length=50, verbose_name='استان', null=True, blank=True)
     zipcode = models.CharField(verbose_name='کدپستی',blank=True,null=True,max_length=10)
     address = models.TextField(verbose_name='آدرس', null=True, blank=True)
