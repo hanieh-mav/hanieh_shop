@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %} صفحه  تغییر اطلاعات {% endblock %}
+
+{% block content %}
+
+<br>
+<div class="container-fluid">
+    <div class="row">
+      
+      <div class="col-sm-3" ></div>
+      <div class="col-sm-6" >
+        <div class="panel ">
+            <div class="panel-body">
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <div class="form-group">
+                        <div class="col-sm-10">  
+                          <label>نام</label>
+                            {{form.first_name}}
+                                   
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-10">  
+                          <label>نام خانوادگی</label>
+                            {{form.last_name}}       
+                        </div>
+                      </div> 
+                       <div class="form-group">
+                        <div class="col-sm-10">  
+                          <label>شماره تلفن</label>
+                            {{form.phone}}  
+                            {% if form.phone.errors %}
+						                  	<div class="errors">
+						                  		{% for error in form.phone.errors %}
+                                  <p id="myp" style="text-align: center;" class="alert alert-danger">{{error}}
+                                    <span onclick="myFunction()" class="glyphicon glyphicon-remove"></span>
+                                  </p>
+						                  		{% endfor %}
+						                  	</div>
+						                {% endif %}     
+                        </div>
+                      </div> 
+                       <div class="form-group">
+                        <div class="col-sm-10"> 
+                          <label>استان</label> 
+                            {{form.ostan}} 
+                            {% if form.ostan.errors %}
+						                  	<div class="errors">
+						                  		{% for error in form.ostan.errors %}
+                                  <p id="myp" style="text-align: center;" class="alert alert-danger">{{error}}
+                                    <span onclick="myFunction()" class="glyphicon glyphicon-remove"></span>
+                                  </p>
+						                  		{% endfor %}
+						                  	</div>
+						                {% endif %}   
+                                 
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <div class="col-sm-10">  
+                          <label>ادرس</label>
+                            {{form.address}}
+                            {% if form.address.errors %}
+						                  	<div class="errors">
+						                  		{% for error in form.address.errors %}
+                                  <p id="myp" style="text-align: center;" class="alert alert-danger">{{error}}
+                                    <span onclick="myFunction()" class="glyphicon glyphicon-remove"></span>
+                                  </p>
+						                  		{% endfor %}
+						                  	</div>
+						                {% endif %}        
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-10">  
+                          <label>کدپستی</label>
+                            {{form.zipcode}} 
+                            {% if form.zipcode.errors %}
+						                  	<div class="errors">
+						                  		{% for error in form.zipcode.errors %}
+                                  <p id="myp" style="text-align: center;" class="alert alert-danger">{{error}}
+                                    <span onclick="myFunction()" class="glyphicon glyphicon-remove"></span>
+                                  </p>
+						                  		{% endfor %}
+						                  	</div>
+						                {% endif %}       
+                        </div>
+                      </div>
+                      
+                     
+                    <div class="form-group">        
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">اعمال تغییرات </button>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-3" ></div>
+    </div>
+</div>
+{% endblock %}
+

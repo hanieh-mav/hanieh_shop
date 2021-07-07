@@ -5,9 +5,16 @@ from django.core.paginator import Paginator
 from django.views.generic import DetailView
 from comment.forms import CommentForm
 from cart.forms import CartAddForm
+from django.views.decorators.cache import cache_page
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.conf import settings
+from django.utils.decorators import method_decorator
 
-# Create your views here.
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+
+@cache_page(CACHE_TTL)
 def home(request,page=1):
     products_list = Product.active.all()
     paginator = Paginator(products_list,8)
@@ -23,7 +30,7 @@ def category_detail(request,slug,page=1):
     return render(request,'shop/index.html',{'products':products}) 
 
 
-
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class ProductDetail(DetailView):
     def get_queryset(self,**kwargs):
         pk = self.kwargs.get('pk')

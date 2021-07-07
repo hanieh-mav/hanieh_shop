@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import models
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.forms import fields
 from .models import User
 
 
@@ -110,4 +111,43 @@ class RegisterUserForm(forms.ModelForm):
         return phone
 
 
-   
+class ChangeDetailuserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'ostan', 'phone','zipcode', 'address',)
+
+
+    def clean_ostan(self):
+        ostan = self.cleaned_data['ostan']
+        if ostan:
+            if len(ostan) < 3 or len(ostan) > 25 or not ostan.isalpha():
+                raise forms.ValidationError('یک استان معتبر وارد کنید')
+        return ostan
+
+  
+
+    def clean_address(self):
+        address = self.cleaned_data['address']
+        if address:
+            if len(address) < 20:
+                raise forms.ValidationError('یک آدرس معتبر وارد کنید')
+        return address
+
+
+    def clean_zipcode(self):
+        zipcode = self.cleaned_data['zipcode']
+        zipcode = str(zipcode)
+        if zipcode:
+            if len(zipcode) < 10:
+                raise forms.ValidationError('یک کدپستی  معتبر وارد کنید')
+        return zipcode
+
+
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if phone:
+            if len(phone) < 11 or User.objects.filter(phone=phone).exists():
+                raise forms.ValidationError('شماره تلفن نامعتبر است')
+        return phone
+

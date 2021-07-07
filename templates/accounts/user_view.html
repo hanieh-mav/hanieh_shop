@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ftco-animate">
+            <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">اطلاعات تحویل گیرنده</h5>
+              <p class="card-text">{{user.full_name}}</p>
+              <p class="card-text">{{user.phone}}</p>
+              <p class="card-text">{{user.full_address}}</p>
+              <a href="{% url 'accounts:user-update'  user.pk %}" class="card-link">تعویض اطلاعات</a>
+            </div>
+          </div>
+          </div>
+    </div>
+</div>
+
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>جزییات</th>
+                            <th> تاریخ</th>
+                            <th>قیمت کل</th>
+                            <th>وضعیت پرداخت</th>
+                            <th>وضعیت محصول</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for order in orders %}
+                        <tr class="text-center">
+                            <td><a href="{% url 'accounts:order_detail' order.pk %}">دیدن ایتم ها</a></td>
+                            <td class="product-name">
+                                <h3> {{order.created}}</h3>
+                                
+                            </td>
+
+                            <td class="price">{{order.get_total_price}} تومان</td>
+                            <td>
+                                {% if order.is_paid  %}
+                                <span class="badge badge-success">  پرداخت شده </span>
+                                {% else %}
+                                <span class="badge badge-danger"> عدم پرداخت  </span>
+                                
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if order.status == 's' %}
+                                  <span class="badge badge-success"> فرستاده شده </span>
+                                  {% elif order.status == 'o' %}
+                                  <span class="badge badge-danger"> موجود نمیباشد </span>
+                                  {% elif order.status == 'w' %}
+                                  <span class="badge badge-warning"> منتظر </span>
+                                  {% elif order.status == 'p' %}
+                                  <span class="badge badge-primary"> در حال بررسی </span>
+                                  {% endif %}
+                            </td>
+                                </tr><!-- END TR-->
+
+                    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

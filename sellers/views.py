@@ -32,7 +32,6 @@ def RegisterSeller(request):
 
 
 
-
 class ProfileUpdate(UpdateView):
     model = Seller
     template_name = 'dashboard/profile_update.html'
