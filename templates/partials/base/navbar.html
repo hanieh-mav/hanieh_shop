@@ -18,7 +18,7 @@
                 <li class="nav-item"><a href="{% url 'contactus:contact_us' %}" class="nav-link">تماس با ما</a></li>
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link"> خروج</a></li>
-                <li class="nav-item"> <a href="{% url 'accounts:logout' %}" class="nav-link">{{user.full_name}}</a></li>
+                <li class="nav-item"> <a href="{% url 'accounts:user_detail' %}" class="nav-link">{{user.full_name}}</a></li>
                     {% if user.is_authenticated and user.is_shopadmin or user.is_admin or user.is_seller %}
                         <li class="nav-item"><a href="{% url 'dashboard:index' %}" class="nav-link"> داشبورد</a></li> 
                     {% endif %}

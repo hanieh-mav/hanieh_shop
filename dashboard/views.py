@@ -9,9 +9,17 @@ AccessDeleteMixin ,  )
 from orders.models import Order 
 from accounts.models import User
 from sellers.models import Seller
+from django.views.decorators.cache import cache_page
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.conf import settings
+from django.utils.decorators import method_decorator
+
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 # Create your views here.
 
-
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class ProductList(ListView):
     template_name = 'dashboard/product_list.html'
     paginate_by = 6
@@ -56,6 +64,7 @@ class DeleteProduct(AccessMixin,DeleteView):
     success_url = reverse_lazy('dashboard:index')
 
 
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class OrderList(ListView):
     template_name = 'dashboard/order_list.html'
     paginate_by = 6
@@ -66,6 +75,8 @@ class OrderList(ListView):
             raise Http404("You don't have access to this page")
 
 
+
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class OrderDetail(AccessUserMixin,DetailViewMixin, UpdateView):
     details_model = Order
     context_detail_object_name = 'order_item'
@@ -74,12 +85,15 @@ class OrderDetail(AccessUserMixin,DetailViewMixin, UpdateView):
     fields = ['status']
 
 
+
 class DeleteOrder(AccessDeleteMixin,DeleteView):
     model = Order
     template_name = 'dashboard/delete.html'
     success_url = reverse_lazy('dashboard:order')
 
 
+
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class UserList(AccessDeleteMixin,ListView):
     template_name = 'dashboard/access_user.html'
     paginate_by = 6
@@ -90,6 +104,7 @@ class UserList(AccessDeleteMixin,ListView):
             raise Http404("You don't have access to this page")
 
 
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class UserDetail(AccessDeleteMixin,DetailViewMixin, UpdateView):
     details_model = User
     context_detail_object_name = 'user'
@@ -105,7 +120,7 @@ class DeleteUser(AccessDeleteMixin,DeleteView):
     success_url = reverse_lazy('dashboard:user-list')
 
 
-
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class SellerList(AccessDeleteMixin,ListView):
     template_name = 'dashboard/seller_list.html'
     paginate_by = 6
@@ -116,6 +131,7 @@ class SellerList(AccessDeleteMixin,ListView):
             raise Http404("You don't have access to this page")
 
 
+@method_decorator(cache_page(CACHE_TTL), name='dispatch')
 class SellerDetail(AccessDeleteMixin,DetailViewMixin, UpdateView):
     details_model = Seller
     context_detail_object_name = 'seller'

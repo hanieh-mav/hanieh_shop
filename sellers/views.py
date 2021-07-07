@@ -31,6 +31,7 @@ def RegisterSeller(request):
     return render(request,'accounts/register.html',{'form':form})
 
 
+
 class ProfileUpdate(UpdateView):
     model = Seller
     template_name = 'dashboard/profile_update.html'

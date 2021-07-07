@@ -1,14 +1,15 @@
-from django.forms.forms import Form
 from django.shortcuts import render , redirect , get_object_or_404
-from .forms import LoginUserForm , RegisterUserForm
+from .forms import LoginUserForm , RegisterUserForm , ChangeDetailuserForm
 from django.contrib.auth import authenticate , login ,logout
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from .models import User
 from django.contrib.auth import views as auth_view
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
-
+from django.views.generic import UpdateView , DetailView
+from django.views import View
+from django.urls import reverse_lazy 
+from orders.models import Order , OrderItem
 
 # Create your views here.
 
@@ -87,3 +88,34 @@ def RegisterUser(request):
 def LogoutUser(request):
     logout(request)
     return redirect('shop:home')
+
+
+@method_decorator(login_required, name='dispatch')
+class UserView(View):
+    template_name = 'accounts/user_view.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        user_detail = User.objects.get(id=user.id)
+        orders = Order.objects.filter(user=user).order_by('-created')
+        return render(request,self.template_name,{'orders':orders,'user':user_detail})
+
+
+
+@method_decorator(login_required, name='dispatch')
+class OrderDetail(DetailView):
+    model = Order
+    template_name = 'accounts/orderitem_detail.html'
+
+ 
+
+
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileUpdate(UpdateView):
+    model = User
+    form_class = ChangeDetailuserForm
+    success_url=reverse_lazy('accounts:user_detail')
+
+
+

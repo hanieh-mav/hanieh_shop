@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                        <tr class="text-center">
+                            <th>&nbsp;</th>
+                            <th>نام محصول</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
+                            <th>جمع کل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                    {% for item in order.item.all %}
+                        <tr class="text-center">
+
+                            <td class="image-prod">
+                                <a class="img" href="{% url 'shop:product_detaill' item.product.pk %}">
+                                <<img class="mr-15" style="width: 100px; height :100px" src="{{item.product.photo.url}}" alt="">
+                                </a>
+                            </td>
+
+                            <td class="product-name">
+                                <h3> {{item.product.name}}</h3>
+                                
+                            </td>
+
+                            <td class="price">{{item.price}} تومان</td>
+
+                            <td class="quantity">
+                                {{item.quantity}}
+                            </td>
+
+                            <td class="total">{{item.get_cost}} تومان</td>
+                        </tr><!-- END TR-->
+
+                    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+
+{% endblock %}

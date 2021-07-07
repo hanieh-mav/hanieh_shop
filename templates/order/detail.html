@@ -4,16 +4,42 @@
 
 {% block content %}
  
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ftco-animate">
+            <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">اطلاعات تحویل گیرنده</h5>
+              <p class="card-text">{{user.full_name}}</p>
+              <p class="card-text">{{user.phone}}</p>
+              <p class="card-text">{{user.full_address}}</p>
+              <a href="{% url 'accounts:user-update'  user.pk %}" class="card-link">تعویض اطلاعات</a>
+            </div>
+          </div>
+          </div>
+    </div>
+</div>
 
 
 <section class="ftco-section">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-7 ftco-animate">
-              <p>ادرس ارسال</p>
-              <p>{{order.user.full_address}}</p>
-                  </div>
-
+             <div class="container">
+    <div class="row">
+        <div class="col-md-12 ftco-animate">
+            <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">اطلاعات تحویل گیرنده</h5>
+              <p class="card-text">{{user.full_name}}</p>
+              <p class="card-text">{{user.phone}}</p>
+              <p class="card-text">{{user.full_address}}</p>
+              <a href="{% url 'accounts:user-update'  user.pk %}" class="card-link">تعویض اطلاعات</a>
+            </div>
+          </div>
+          </div>
+    </div>
+</div>
                   <form action="{% url 'orders:coupon_apply' order.id %}" class="info" method="POST">
                     <div class="form-group">
                         <label for="">استفاده از حروف کوچک و بزرگ الزامیست</label>

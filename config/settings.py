@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'sellers.apps.SellersConfig',
 
     'crispy_forms',
+    'debug_toolbar',
 ]
 
 
@@ -61,6 +62,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -80,6 +89,21 @@ TEMPLATES = [
         },
     },
 ]
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
+
+
+CACHE_TTL = 60 * 15
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -166,4 +190,7 @@ EMAIL_HOST_USER = 'haniehproject.it@gmail.com'
 EMAIL_HOST_PASSWORD = 'conshxivhysbptmj'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+
 
